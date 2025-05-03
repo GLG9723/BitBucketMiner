@@ -25,6 +25,7 @@ public class ProjectController {
     @GetMapping("/{id}")
     public Project findOne(@PathVariable long id) {
         Optional<Project> proj = projectRepository.findById(id);
+        System.out.println("commit de prueba");
         return proj.get();
     }
 

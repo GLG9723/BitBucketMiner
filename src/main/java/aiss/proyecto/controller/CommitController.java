@@ -1,8 +1,8 @@
 package aiss.proyecto.controller;
 
 import jakarta.validation.Valid;
-import lab6.LAB6.model.Commit;
-import lab6.LAB6.repository.CommitRepository;
+import aiss.proyecto.model.Commit;
+import aiss.proyecto.repository.CommitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

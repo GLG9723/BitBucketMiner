@@ -1,4 +1,4 @@
-package aiss.proyecto.model;
+package aiss.proyecto.modelRepo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "projects")
-public class Project {
+public class ZProject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +23,15 @@ public class Project {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "project_id")
-    private List<Commit> commits;
+    private List<ZCommit> commits;
 
-    public Project() {
+    public ZProject() {
     }
 
-    public Project(String name, String web_url) {
+    public ZProject(String name, String web_url) {
         this.name = name;
         this.web_url = web_url;
-        this.commits = new ArrayList<Commit>();
+        this.commits = new ArrayList<ZCommit>();
     }
 
     public long getId() {
@@ -58,11 +58,11 @@ public class Project {
         this.web_url = web_url;
     }
 
-    public List<Commit> getCommits() {
+    public List<ZCommit> getCommits() {
         return commits;
     }
 
-    public void setCommits(List<Commit> commits) {
+    public void setCommits(List<ZCommit> commits) {
         this.commits = commits;
     }
 

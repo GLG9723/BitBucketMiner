@@ -1,9 +1,9 @@
 package aiss.proyecto.repository;
 
-import aiss.proyecto.model.Commit;
+import aiss.proyecto.modelRepo.ZCommit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CommitRepository extends JpaRepository<Commit, Long> {
+public interface ZCommitRepository extends JpaRepository<ZCommit, Long> {
 }

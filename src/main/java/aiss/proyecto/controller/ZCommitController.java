@@ -1,8 +1,8 @@
 package aiss.proyecto.controller;
 
 import jakarta.validation.Valid;
-import aiss.proyecto.model.Commit;
-import aiss.proyecto.repository.CommitRepository;
+import aiss.proyecto.modelRepo.ZCommit;
+import aiss.proyecto.repository.ZCommitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,35 +12,35 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/commits")
-public class CommitController {
+public class ZCommitController {
 
     @Autowired
-    CommitRepository commitRepository;
+    ZCommitRepository commitRepository;
 
     @GetMapping
-    public List<Commit> findAll() {
+    public List<ZCommit> findAll() {
         return commitRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Commit findOne(@PathVariable long id) {
-        Optional<Commit> commit = commitRepository.findById(id);
+    public ZCommit findOne(@PathVariable long id) {
+        Optional<ZCommit> commit = commitRepository.findById(id);
         return commit.get();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Commit createCommit(@RequestBody @Valid Commit commit) {
-        Commit com = commitRepository.save(new Commit(commit.getTitle(), commit.getMessage(), commit.getAuthor_email(), commit.getAuthored_date()));
+    public ZCommit createCommit(@RequestBody @Valid ZCommit commit) {
+        ZCommit com = commitRepository.save(new ZCommit(commit.getTitle(), commit.getMessage(), commit.getAuthor_email(), commit.getAuthored_date()));
         return com;
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCommit(@RequestBody @Valid Commit updatedCommit, @PathVariable long id) {
-        Optional<Commit> commitData = commitRepository.findById(id);
+    public void updateCommit(@RequestBody @Valid ZCommit updatedCommit, @PathVariable long id) {
+        Optional<ZCommit> commitData = commitRepository.findById(id);
 
-        Commit com = commitData.get();
+        ZCommit com = commitData.get();
         com.setTitle(updatedCommit.getTitle());
         com.setMessage(updatedCommit.getMessage());
         com.setAuthor_email(updatedCommit.getAuthor_email());

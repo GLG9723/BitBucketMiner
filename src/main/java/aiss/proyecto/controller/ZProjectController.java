@@ -1,8 +1,8 @@
 package aiss.proyecto.controller;
 
 import jakarta.validation.Valid;
-import aiss.proyecto.model.Project;
-import aiss.proyecto.repository.ProjectRepository;
+import aiss.proyecto.modelRepo.ZProject;
+import aiss.proyecto.repository.ZProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,37 +12,36 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/projects")
-public class ProjectController {
+public class ZProjectController {
 
     @Autowired
-    ProjectRepository projectRepository;
+    ZProjectRepository projectRepository;
 
     @GetMapping
-    public List<Project> findAll() {
+    public List<ZProject> findAll() {
         return projectRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Project findOne(@PathVariable long id) {
-        Optional<Project> proj = projectRepository.findById(id);
-        System.out.println("commit de prueba");
+    public ZProject findOne(@PathVariable long id) {
+        Optional<ZProject> proj = projectRepository.findById(id);
         return proj.get();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Project createProject(@RequestBody @Valid Project project) {
-        Project proj = projectRepository.save(new Project(project.getName(), project.getWeb_url()));
+    public ZProject createProject(@RequestBody @Valid ZProject project) {
+        ZProject proj = projectRepository.save(new ZProject(project.getName(), project.getWeb_url()));
         return proj;
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateProject(@RequestBody @Valid Project updatedProject, @PathVariable long id) {
-        Optional<Project> projData = projectRepository.findById(id);
+    public void updateProject(@RequestBody @Valid ZProject updatedProject, @PathVariable long id) {
+        Optional<ZProject> projData = projectRepository.findById(id);
 
         if (projData.isPresent()) {
-            Project proj = projData.get();
+            ZProject proj = projData.get();
             proj.setName(updatedProject.getName());
             proj.setWeb_url(updatedProject.getWeb_url());
             projectRepository.save(proj);

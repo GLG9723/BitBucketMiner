@@ -1,4 +1,4 @@
-package aiss.proyecto.model;
+package aiss.proyecto.modelRepo;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "commits")
-public class Commit {
+public class ZCommit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,10 @@ public class Commit {
     @Column(name = "authored_date")
     private LocalDateTime authored_date;
 
-    public Commit() {
+    public ZCommit() {
     }
 
-    public Commit(String title, String message, String author_email, LocalDateTime authored_date) {
+    public ZCommit(String title, String message, String author_email, LocalDateTime authored_date) {
         this.title = title;
         this.message = message;
         this.author_email = author_email;

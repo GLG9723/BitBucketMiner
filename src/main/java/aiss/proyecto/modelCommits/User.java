@@ -1,21 +1,10 @@
 
 package aiss.proyecto.modelCommits;
 
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "display_name",
-    "links",
-    "type",
-    "uuid",
-    "account_id",
-    "nickname"
-})
-@Generated("jsonschema2pojo")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
     @JsonProperty("display_name")

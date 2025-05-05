@@ -1,34 +1,11 @@
 
 package aiss.proyecto.modelIssues;
 
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "type",
-    "id",
-    "repository",
-    "links",
-    "title",
-    "content",
-    "reporter",
-    "assignee",
-    "created_on",
-    "edited_on",
-    "updated_on",
-    "state",
-    "kind",
-    "milestone",
-    "component",
-    "priority",
-    "version",
-    "votes",
-    "watches"
-})
-@Generated("jsonschema2pojo")
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ValueIssue {
 
     @JsonProperty("type")

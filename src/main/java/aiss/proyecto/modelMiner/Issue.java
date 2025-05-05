@@ -3,23 +3,15 @@ package aiss.proyecto.modelMiner;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.annotation.Generated;
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Entity
-@Table(name = "Issue")
 public class Issue {
 
-    @Id
     @JsonProperty("id")
     private String id;
     @JsonProperty("title")
     private String title;
     @JsonProperty("description")
-    @Column(columnDefinition="TEXT")
     private String description;
     @JsonProperty("state")
     private String state;
@@ -31,22 +23,14 @@ public class Issue {
     @JsonProperty("closed_at")
     private String closedAt;
     @JsonProperty("labels")
-    @ElementCollection
     private List<String> labels;
     @JsonProperty("author")
-    //@NotEmpty(message = "The author of the issue cannot be empty")
-    @JoinColumn(name = "author_id",referencedColumnName = "id")
-    @OneToOne(cascade=CascadeType.ALL)
     private User author;
     @JsonProperty("assignee")
-    @JoinColumn(name = "assignee_id",referencedColumnName = "id")
-    @OneToOne(cascade=CascadeType.ALL)
     private User assignee;
     @JsonProperty("votes")
     private Integer votes;
     @JsonProperty("comments")
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "issueId")
     private List<Comment> comments;
 
     public String getId() {

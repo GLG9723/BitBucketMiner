@@ -20,7 +20,8 @@ public class CommentsService {
         res.setAuthor(userService.parseaUser(userBB));
 
         res.setCreatedAt(valueComment.getCreatedOn());
-        res.setUpdatedAt(valueComment.getUpdatedOn());
+
+        res.setUpdatedAt(valueComment.getUpdatedOn().toString()); // esto es un object que es null y lo traformamos a string
         return res;
     }
 }

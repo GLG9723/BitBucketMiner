@@ -68,7 +68,7 @@ public class ValueComment {
     }
 
     @JsonProperty("updated_on")
-    public Object getUpdatedOn() {
+    public String getUpdatedOn() {
         return updatedOn;
     }
 

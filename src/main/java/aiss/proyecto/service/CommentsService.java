@@ -15,13 +15,19 @@ public class CommentsService {
         Comment res = new Comment();
         res.setBody(valueComment.getContent().getRaw());
 
-        UserBB userBB = restTemplate.getForObject(valueComment.getUser().getLinks().getSelf().getHref(), UserBB.class);
-        UserService userService = new UserService();
-        res.setAuthor(userService.parseaUser(userBB));
+        //UserBB userBB = restTemplate.getForObject(valueComment.getUser().getLinks().getSelf().getHref(), UserBB.class);
+        // el user que me da no es el correcto
+
+        //UserService userService = new UserService();
+        //res.setAuthor(userService.parseaUser(userBB));
 
         res.setCreatedAt(valueComment.getCreatedOn());
 
-        res.setUpdatedAt(valueComment.getUpdatedOn().toString()); // esto es un object que es null y lo traformamos a string
+        // esto siempre es null entonces ns
+        if (valueComment.getUpdatedOn() != null){
+            res.setUpdatedAt(valueComment.getUpdatedOn().toString());
+        }
+
         return res;
     }
 }

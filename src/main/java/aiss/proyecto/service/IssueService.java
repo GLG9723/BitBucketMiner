@@ -7,9 +7,9 @@ import aiss.proyecto.modelMiner.Comment;
 import aiss.proyecto.modelMiner.Issue;
 import aiss.proyecto.modelUser.UserBB;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,34 +36,26 @@ public class IssueService {
         labels.add(valueIssue.getKind());
         res.setLabels(labels);
 
-        // le añade caracteres que no deberia a la url o algo el getForObject
-        try {
-            System.out.println(valueIssue.getReporter().getLinks().getSelf().getHref());
-            UserBB userBB = restTemplate.getForObject("https://api.bitbucket.org/2.0/users/%7Bef8e4111-1bef-40cd-9e4e-d50546ca5a50%7D", UserBB.class);
-            UserService userService = new UserService();
-            res.setAuthor(userService.parseaUser(userBB));
-        } catch (RestClientException e) {
-            String url = valueIssue.getReporter().getLinks().getSelf().getHref();
-            Integer indiceException = e.toString().indexOf("message");
-            Integer indiceUrl = url.indexOf("users/");
-            indiceException += 11;
-            indiceUrl += 6;
+        // Si lo metemos como un string no funciona por restTemplate --> % --> codificacion
+        String url = valueIssue.getReporter().getLinks().getSelf().getHref();
+        URI uri = URI.create(url);
 
-            String recorteUrl = url.substring(0, indiceUrl);
+        UserBB userBB = restTemplate.getForObject(uri, UserBB.class);
+        UserService userService = new UserService();
+        res.setAuthor(userService.parseaUser(userBB));
 
-            String nuevo = e.toString().substring(indiceException, e.toString().length()-4);
+        // ASSIGNEE
+        // no puedo obtener la URL de algo NULL
+        /* String urlAsig = valueIssue.getAssignee();
+        URI uriAsig = URI.create(urlAsig);
 
-            /* UserBB userBB = restTemplate.getForObject(recorteUrl+nuevo, UserBB.class);
-            UserService userService = new UserService();
-            res.setAuthor(userService.parseaUser(userBB)); */
-        }
+        UserBB userBBAsig = restTemplate.getForObject(uriAsig, UserBB.class);
+        // Siempre es NULL en la mayoria de proyectos observados
+        if (userBBAsig != null) {
+            UserService userServiceAsig = new UserService();
+            res.setAssignee(userServiceAsig.parseaUser(userBBAsig));
+        } */
 
-
-
-
-        // UserBB userBBAsig = restTemplate.getForObject(valueIssue.getReporter().getLinks().getSelf().getHref(), UserBB.class);
-        // UserService userServiceAsig = new UserService();
-        // res.setAssignee(); // SIEMPRE ES NULL???
 
         res.setVotes(valueIssue.getVotes());
 

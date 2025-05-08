@@ -6,6 +6,8 @@ import aiss.proyecto.modelUser.UserBB;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+
 @Service
 public class CommentsService {
 
@@ -15,12 +17,16 @@ public class CommentsService {
         Comment res = new Comment();
         res.setBody(valueComment.getContent().getRaw());
 
-        //UserBB userBB = restTemplate.getForObject(valueComment.getUser().getLinks().getSelf().getHref(), UserBB.class);
-        // el user que me da no es el correcto
+        // USUARIO
+        String url = valueComment.getUser().getLinks().getSelf().getHref();
+        URI uri = URI.create(url);
 
-        //UserService userService = new UserService();
-        //res.setAuthor(userService.parseaUser(userBB));
+        UserBB userBB = restTemplate.getForObject(uri, UserBB.class);
 
+        UserService userService = new UserService();
+        res.setAuthor(userService.parseaUser(userBB));
+
+        // CREATED AT
         res.setCreatedAt(valueComment.getCreatedOn());
 
         // esto siempre es null entonces ns

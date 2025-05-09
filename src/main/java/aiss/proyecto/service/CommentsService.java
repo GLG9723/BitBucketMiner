@@ -17,7 +17,12 @@ public class CommentsService {
         Comment res = new Comment();
         res.setId(valueComment.getId().toString());
 
-        res.setBody(valueComment.getContent().getRaw());
+        if (valueComment.getContent().getRaw()!=null){
+            res.setBody(valueComment.getContent().getRaw());
+        } else {
+            res.setBody("-");
+        }
+
 
         // USUARIO
         String url = valueComment.getUser().getLinks().getSelf().getHref();

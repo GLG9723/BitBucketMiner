@@ -15,6 +15,8 @@ public class CommentsService {
 
     public Comment parseaComment(ValueComment valueComment){
         Comment res = new Comment();
+        res.setId(valueComment.getId().toString());
+
         res.setBody(valueComment.getContent().getRaw());
 
         // USUARIO
@@ -29,10 +31,8 @@ public class CommentsService {
         // CREATED AT
         res.setCreatedAt(valueComment.getCreatedOn());
 
-        // esto siempre es null entonces ns
-        if (valueComment.getUpdatedOn() != null){
-            res.setUpdatedAt(valueComment.getUpdatedOn().toString());
-        }
+        // esto casi siempre es null
+        res.setUpdatedAt(valueComment.getUpdatedOn());
 
         return res;
     }

@@ -23,7 +23,7 @@ public class ValueIssue {
     @JsonProperty("reporter")
     private Reporter reporter;
     @JsonProperty("assignee")
-    private Object assignee;
+    private Reporter assignee;
     @JsonProperty("created_on")
     private String createdOn;
     @JsonProperty("edited_on")
@@ -118,12 +118,12 @@ public class ValueIssue {
     }
 
     @JsonProperty("assignee")
-    public Object getAssignee() {
+    public Reporter getAssignee() {
         return assignee;
     }
 
     @JsonProperty("assignee")
-    public void setAssignee(Object assignee) {
+    public void setAssignee(Reporter assignee) {
         this.assignee = assignee;
     }
 

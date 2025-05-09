@@ -20,18 +20,22 @@ public class IssueService {
 
     public Issue parseaIssue(ValueIssue valueIssue) {
         Issue res = new Issue();
+        res.setId(valueIssue.getId().toString());
+
         res.setTitle(valueIssue.getTitle());
         res.setDescription(valueIssue.getContent().getRaw());
         res.setState(valueIssue.getState());
         res.setCreatedAt(valueIssue.getCreatedOn());
         res.setUpdatedAt(valueIssue.getUpdatedOn());
 
+        // IDEA INICIAL --> PERO EN EL VIDEO LO DEJA COMO UN STRING VACIO
         // si es cualquier cosa que no sea NEW es que se cerro en la fecha de update
-        if (!valueIssue.getState().equals("new")) {
+        /* if (!valueIssue.getState().equals("new")) {
             res.setClosedAt(valueIssue.getUpdatedOn());
-        }
+        } */
+        res.setClosedAt("");
 
-        // ns que mas añadir a los labels
+        // LABELS
         List<String> labels = new ArrayList<>();
         labels.add(valueIssue.getKind());
         res.setLabels(labels);
@@ -45,16 +49,15 @@ public class IssueService {
         res.setAuthor(userService.parseaUser(userBB));
 
         // ASSIGNEE
-        // no puedo obtener la URL de algo NULL
-        /* String urlAsig = valueIssue.getAssignee();
-        URI uriAsig = URI.create(urlAsig);
+        // siempre es null excepto un caso
+        if (valueIssue.getAssignee() != null) {
+            String urlAsig = valueIssue.getAssignee().getLinks().getSelf().getHref();
+            URI uriAsig = URI.create(urlAsig);
 
-        UserBB userBBAsig = restTemplate.getForObject(uriAsig, UserBB.class);
-        // Siempre es NULL en la mayoria de proyectos observados
-        if (userBBAsig != null) {
+            UserBB userBBAsig = restTemplate.getForObject(uriAsig, UserBB.class);
             UserService userServiceAsig = new UserService();
             res.setAssignee(userServiceAsig.parseaUser(userBBAsig));
-        } */
+        }
 
 
         res.setVotes(valueIssue.getVotes());

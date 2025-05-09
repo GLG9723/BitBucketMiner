@@ -9,8 +9,14 @@ public class CommitService {
 
     public Commit parseaCommit(Value value) {
         Commit res = new Commit();
-        res.setTitle(value.getHash()); // ns si esto es el tittle es q no esta claro
-        res.setMessage(value.getMessage());
+        res.setId(value.getHash());
+
+        String mensaje = value.getMessage();
+        Integer indice = mensaje.indexOf("\n");
+
+        res.setTitle(mensaje.substring(0, indice));
+        res.setMessage(mensaje.substring(indice));
+
         res.setAuthorName(value.getAuthor().getUser().getDisplayName());
 
         String email = value.getAuthor().getRaw();

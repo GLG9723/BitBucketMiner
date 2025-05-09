@@ -36,7 +36,8 @@ public class ProjectService {
 
     public Project parseProject(Repository repo){
         Project project = new Project();
-        project.setName(repo.getFullName()); // ns si esto o name
+        project.setId(repo.getUuid());
+        project.setName(repo.getName());
         project.setWebUrl(repo.getLinks().getHtml().getHref());
 
         CommitBB commitBB = restTemplate.getForObject(repo.getLinks().getCommits().getHref(), CommitBB.class);

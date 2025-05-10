@@ -5,6 +5,7 @@ import aiss.proyecto.modelComments.ValueComment;
 import aiss.proyecto.modelIssues.ValueIssue;
 import aiss.proyecto.modelMiner.Comment;
 import aiss.proyecto.modelMiner.Issue;
+import aiss.proyecto.modelMiner.User;
 import aiss.proyecto.modelUser.UserBB;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -48,6 +49,14 @@ public class IssueService {
             UserBB userBB = restTemplate.getForObject(uri, UserBB.class);
             UserService userService = new UserService();
             res.setAuthor(userService.parseaUser(userBB));
+        } else {
+            User vacio = new User();
+            vacio.setId("0");
+            vacio.setUsername("deletedUser");
+            vacio.setName("Deleted User");
+            vacio.setAvatarUrl("La información de este usuario fue eliminada");
+            vacio.setWebUrl("La información de este usuario fue eliminada");
+            res.setAuthor(vacio);
         }
 
 

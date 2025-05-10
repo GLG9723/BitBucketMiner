@@ -25,13 +25,16 @@ public class CommentsService {
 
 
         // USUARIO
-        String url = valueComment.getUser().getLinks().getSelf().getHref();
-        URI uri = URI.create(url);
+        if (valueComment.getUser() != null) {
+            String url = valueComment.getUser().getLinks().getSelf().getHref();
+            URI uri = URI.create(url);
 
-        UserBB userBB = restTemplate.getForObject(uri, UserBB.class);
+            UserBB userBB = restTemplate.getForObject(uri, UserBB.class);
 
-        UserService userService = new UserService();
-        res.setAuthor(userService.parseaUser(userBB));
+            UserService userService = new UserService();
+            res.setAuthor(userService.parseaUser(userBB));
+        }
+
 
         // CREATED AT
         res.setCreatedAt(valueComment.getCreatedOn());

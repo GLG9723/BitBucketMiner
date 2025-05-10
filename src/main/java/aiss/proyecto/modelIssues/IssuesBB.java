@@ -17,6 +17,8 @@ public class IssuesBB {
     private Integer size;
     @JsonProperty("page")
     private Integer page;
+    @JsonProperty("next")
+    private String next;
     @JsonProperty("previous")
     private String previous;
 
@@ -58,6 +60,16 @@ public class IssuesBB {
     @JsonProperty("page")
     public void setPage(Integer page) {
         this.page = page;
+    }
+
+    @JsonProperty("next")
+    public String getNext() {
+        return next;
+    }
+
+    @JsonProperty("next")
+    public void setNext(String next) {
+        this.next = next;
     }
 
     @JsonProperty("previous")

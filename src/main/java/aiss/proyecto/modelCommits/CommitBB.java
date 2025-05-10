@@ -13,6 +13,8 @@ public class CommitBB {
     private List<Value> values;
     @JsonProperty("pagelen")
     private Integer pagelen;
+    @JsonProperty("next")
+    private String next;
     @JsonProperty("previous")
     private String previous;
 
@@ -34,6 +36,16 @@ public class CommitBB {
     @JsonProperty("pagelen")
     public void setPagelen(Integer pagelen) {
         this.pagelen = pagelen;
+    }
+
+    @JsonProperty("next")
+    public String getNext() {
+        return next;
+    }
+
+    @JsonProperty("next")
+    public void setNext(String next) {
+        this.next = next;
     }
 
     @JsonProperty("previous")

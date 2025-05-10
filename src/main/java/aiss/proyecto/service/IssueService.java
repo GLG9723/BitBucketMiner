@@ -41,12 +41,15 @@ public class IssueService {
         res.setLabels(labels);
 
         // Si lo metemos como un string no funciona por restTemplate --> % --> codificacion
-        String url = valueIssue.getReporter().getLinks().getSelf().getHref();
-        URI uri = URI.create(url);
+        if (valueIssue.getReporter() != null) {
+            String url = valueIssue.getReporter().getLinks().getSelf().getHref();
+            URI uri = URI.create(url);
 
-        UserBB userBB = restTemplate.getForObject(uri, UserBB.class);
-        UserService userService = new UserService();
-        res.setAuthor(userService.parseaUser(userBB));
+            UserBB userBB = restTemplate.getForObject(uri, UserBB.class);
+            UserService userService = new UserService();
+            res.setAuthor(userService.parseaUser(userBB));
+        }
+
 
         // ASSIGNEE
         // siempre es null excepto un caso

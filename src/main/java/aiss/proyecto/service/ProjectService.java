@@ -1,5 +1,6 @@
 package aiss.proyecto.service;
 
+import aiss.proyecto.exception.NegativeParameterException;
 import aiss.proyecto.exception.PageLimitException;
 import aiss.proyecto.modelCommits.CommitBB;
 import aiss.proyecto.modelCommits.Value;
@@ -25,7 +26,12 @@ public class ProjectService {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public Project getProject(String workSpace, String repo_slug, int maxPages, int nCommits, int nIssues) throws PageLimitException {
+    public Project getProject(String workSpace, String repo_slug, int maxPages, int nCommits, int nIssues) throws PageLimitException, NegativeParameterException {
+
+        if (maxPages < 1 || nCommits < 1 || nIssues < 1) {
+            throw new NegativeParameterException();
+        }
+
         String url = "https://api.bitbucket.org/2.0/repositories/" + workSpace + '/' + repo_slug;
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");

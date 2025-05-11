@@ -10,7 +10,6 @@ import aiss.proyecto.modelMiner.Commit;
 import aiss.proyecto.modelMiner.Issue;
 import aiss.proyecto.modelRepo.Repository;
 import aiss.proyecto.modelMiner.Project;
-import org.hibernate.query.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
